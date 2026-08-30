@@ -5,8 +5,12 @@ type DefaultInputProps = {
   labelText?: string;
 } & React.ComponentProps<"input">;
 
-export function DefaultInput(props: DefaultInputProps) {
-  const { type, id, labelText, ...rest } = props;
+export function DefaultInput({
+  type,
+  id,
+  labelText,
+  ...props
+}: DefaultInputProps) {
   return (
     <>
       {labelText && (
@@ -14,7 +18,7 @@ export function DefaultInput(props: DefaultInputProps) {
           {labelText}
         </label>
       )}
-      <input type={type} id={id} {...rest} className={styles.input} />
+      <input type={type} id={id} {...props} className={styles.input} />
     </>
   );
 }
