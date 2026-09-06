@@ -7,8 +7,8 @@ import { DefaultInput } from "../DefaultInput";
 
 export function MainForm() {
   return (
-    <form className="form" action="">
-      <div className="formRow">
+    <form className={styles.form} action="">
+      <div className={styles.formRow}>
         <DefaultInput
           id="meuInput"
           type="text"
@@ -16,13 +16,13 @@ export function MainForm() {
           placeholder="Digite algo"
         />
       </div>
-      <div className="formRow">
+      <div className={styles.formRow}>
         <p>Lorem ipsum dolor sit amet.</p>
       </div>
-      <div className="formRow">
+      <div className={styles.formRow}>
         <Cycles />
       </div>
-      <div className="formRow">
+      <div className={styles.formRow}>
         <DefaultButton color="green">
           <PlayCircleIcon />
         </DefaultButton>
