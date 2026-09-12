@@ -1,6 +1,6 @@
 import styles from "./styles.module.css";
 
-import { PlayCircleIcon } from "lucide-react";
+import { PlayCircleIcon, StopCircleIcon } from "lucide-react";
 import { Cycles } from "../Cycles";
 import { DefaultButton } from "../DefaultButton";
 import { DefaultInput } from "../DefaultInput";
@@ -57,6 +57,25 @@ export function MainForm() {
     }));
   }
 
+  function handleInterruptTask(
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+  ) {
+    e.preventDefault();
+
+    setState((prevState) => ({
+      ...prevState,
+      config: { ...prevState.config },
+      activeTask: null,
+      secondsRemaining: 0,
+      formattedSecondsRemaining: "00:00",
+      tasks: prevState.tasks.map((item) => {
+        if (prevState.activeTask && prevState.activeTask.id === item.id) {
+          return { ...item, interruptDate: Date.now() };
+        }
+      }),
+    }));
+  }
+
   return (
     <form className={styles.form} action="" onSubmit={handleCreateNewTask}>
       <div className={styles.formRow}>
@@ -68,18 +87,41 @@ export function MainForm() {
           // value={taskName}
           // onChange={(e) => setTaskName(e.target.value)}
           ref={taskNameInput}
+          disabled={!!state.activeTask}
         />
       </div>
       <div className={styles.formRow}>
         <p>Lorem ipsum dolor sit amet.</p>
       </div>
+      {state.currentCycle > 0 && (
+        <div className={styles.formRow}>
+          <Cycles />
+        </div>
+      )}
       <div className={styles.formRow}>
-        <Cycles />
-      </div>
-      <div className={styles.formRow}>
-        <DefaultButton color="green">
-          <PlayCircleIcon />
-        </DefaultButton>
+        {!state.activeTask && (
+          <DefaultButton
+            color="green"
+            aria-label="Iniciar nova tarefa"
+            title="Iniciar nova tarefa"
+            type="submit"
+            key="botao_submit"
+          >
+            <PlayCircleIcon />
+          </DefaultButton>
+        )}
+        {!!state.activeTask && (
+          <DefaultButton
+            color="red"
+            type="button"
+            aria-label="Interromper tarefa"
+            title="Interromper tarefa"
+            onClick={handleInterruptTask}
+            key="botao_interrupt"
+          >
+            <StopCircleIcon />
+          </DefaultButton>
+        )}
       </div>
     </form>
   );
