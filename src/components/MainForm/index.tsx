@@ -11,6 +11,8 @@ import { getNextCycle } from "../../utils/getNextCycle";
 import { getNextCycleType } from "../../utils/getNextCycleType";
 import { TaskActionTypes } from "../../contexts/TaskContext/taskAction";
 import { Tips } from "../Tips";
+import { toast } from "react-toastify";
+import { showMessage } from "../../adapters/toastifyWrapper";
 
 export function MainForm() {
   //  const [taskName, setTaskName] = useState("");
@@ -25,12 +27,13 @@ export function MainForm() {
 
   function handleCreateNewTask(event: { preventDefault: () => void }) {
     event.preventDefault();
+    showMessage.dismiss();
 
     if (taskNameInput.current === null) return;
     const taskName = taskNameInput.current.value.trim();
 
     if (!taskName) {
-      alert("Digite o nome da tarefa");
+      showMessage.warning("Digite o nome da tarefa");
       return;
     }
 
@@ -45,14 +48,18 @@ export function MainForm() {
     };
 
     dispatch({ type: TaskActionTypes.START_TASK, payload: newTask });
+
+    showMessage.success("Tarefa iniciada");
   }
 
   function handleInterruptTask(
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
   ) {
     e.preventDefault();
+    showMessage.dismiss();
 
     dispatch({ type: TaskActionTypes.INTERRUPT_TASK });
+    showMessage.error("Tarefa interrompida");
   }
 
   return (
