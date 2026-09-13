@@ -9,8 +9,8 @@ import type { TaskModel } from "../../models/TaskModel";
 import { useTaskContext } from "../../contexts/TaskContext/useTaskContext";
 import { getNextCycle } from "../../utils/getNextCycle";
 import { getNextCycleType } from "../../utils/getNextCycleType";
-import { formatSecondToMinutes } from "../../utils/formatSecondToMinutes";
 import { TaskActionTypes } from "../../contexts/TaskContext/taskAction";
+import { Tips } from "../Tips";
 
 export function MainForm() {
   //  const [taskName, setTaskName] = useState("");
@@ -23,7 +23,7 @@ export function MainForm() {
   const nextCycle = getNextCycle(state.currentCycle);
   const nextCycleType = getNextCycleType(nextCycle);
 
-  function handleCreateNewTask(event: React.FormEvent<HTMLFormElement>) {
+  function handleCreateNewTask(event: { preventDefault: () => void }) {
     event.preventDefault();
 
     if (taskNameInput.current === null) return;
@@ -70,7 +70,7 @@ export function MainForm() {
         />
       </div>
       <div className={styles.formRow}>
-        <p>Lorem ipsum dolor sit amet.</p>
+        <Tips nextCycleType={nextCycleType} />
       </div>
       {state.currentCycle > 0 && (
         <div className={styles.formRow}>
