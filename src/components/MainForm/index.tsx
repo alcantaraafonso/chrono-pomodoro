@@ -11,7 +11,6 @@ import { getNextCycle } from "../../utils/getNextCycle";
 import { getNextCycleType } from "../../utils/getNextCycleType";
 import { TaskActionTypes } from "../../contexts/TaskContext/taskAction";
 import { Tips } from "../Tips";
-import { toast } from "react-toastify";
 import { showMessage } from "../../adapters/toastifyWrapper";
 
 export function MainForm() {
@@ -20,6 +19,7 @@ export function MainForm() {
   const { state, dispatch } = useTaskContext();
 
   const taskNameInput = useRef<HTMLInputElement>(null);
+  const lastTaskName = state.tasks[state.tasks.length - 1]?.name || "";
 
   //ciclos
   const nextCycle = getNextCycle(state.currentCycle);
@@ -74,6 +74,7 @@ export function MainForm() {
           // onChange={(e) => setTaskName(e.target.value)}
           ref={taskNameInput}
           disabled={!!state.activeTask}
+          defaultValue={lastTaskName}
         />
       </div>
       <div className={styles.formRow}>
