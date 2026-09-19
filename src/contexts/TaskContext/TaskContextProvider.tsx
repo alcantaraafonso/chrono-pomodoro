@@ -52,7 +52,7 @@ export function TaskContextProvider({ children }: TaskContextProviderProps) {
 
   useEffect(() => {
     localStorage.setItem("state", JSON.stringify(state));
-    console.log(state);
+    // console.log(state);
     if (!state.activeTask) {
       worker.terminate();
     }
