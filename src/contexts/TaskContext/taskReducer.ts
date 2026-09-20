@@ -1,7 +1,6 @@
 import type { TaskStateModel } from "../../models/TaskModelState";
 import { formatSecondToMinutes } from "../../utils/formatSecondToMinutes";
 import { getNextCycle } from "../../utils/getNextCycle";
-import { initialTaskState } from "./initialTaskState";
 import { TaskActionTypes, type TaskActionModel } from "./taskAction";
 
 export function taskReducer(
@@ -56,7 +55,6 @@ export function taskReducer(
       return {
         ...state,
         activeTask: null,
-        currentCycle: null,
         secondsRemaining: 0,
         formattedSecondsRemaining: "00:00",
         tasks: state.tasks.map((item) => {

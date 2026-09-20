@@ -45,7 +45,12 @@ export function Tips({ nextCycleType }: TipsProps) {
         {!!state.activeTask && tipsForWhenActiveTask[state.activeTask.type]}
       </p>
       {/* false */}
-      <p>{!state.activeTask && tipsForNoActiveTask[nextCycleType]}</p>
+      <p>
+        {!state.activeTask &&
+          tipsForNoActiveTask[
+            nextCycleType as keyof typeof tipsForNoActiveTask
+          ]}
+      </p>
     </>
   );
 }
